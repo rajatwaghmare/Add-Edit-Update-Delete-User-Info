@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: Employee
+Version: 0.0.4
+Summary: Managing Employee details
+Home-page: UNKNOWN
+Author: Krishnakanth Naik
+Author-email: jkknedu2015@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+This is a very simple Employee data manager
+
+```sh
+class Employee:
+
+    num_of_emps = 0
+    raise_amt = 1.04
+
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.email = first + '.' + last + '@DataSocle.ai'
+        self.pay = pay
+
+        Employee.num_of_emps += 1
+
+    def fullname(self):
+        return '{} {}'.format(self.first, self.last)
+
+    def apply_raise(self):
+        self.pay = int(self.pay * self.raise_amt)
+
+    def details(self):
+        return '{} {} {} {}'.format(self.first, self.last, self.email, self.pay)
+
+    def __str__(self):
+        return '{} {} - {} - {}'.format(self.first, self.last, self.email,  self.pay)
+
+    @classmethod
+    def set_raise_amt(cls, amount):
+        cls.raise_amt = amount
+
+    @classmethod
+    def from_string(cls, emp_str):
+        first, last, pay = emp_str.split('-')
+        return cls(first, last, pay)
+'''
+class Company(Employee):
+    def __init__(self, first, last, pay, company):
+        super().__init__(first, last, pay)
+        self.company = company
+        pass
+'''
+class Manager(Employee):
+
+    def __init__(self, first, last, pay, employees = None):    #Creating List of employees
+        super().__init__(first, last, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+
+    def add_emp(self, emp):
+        if emp in self.employees:
+            self.employees.append(emp)
+
+    def remove_emp(self, emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
+
+    def print_emps(self):
+        print("Here the list of Employees under Manager - {} {}".format(self.first, self.last))
+        for emp in self.employees:
+            print('-->',emp.fullname())
+
+```
+
